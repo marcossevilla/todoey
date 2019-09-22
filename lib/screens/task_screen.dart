@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoey/screens/add_task_screen.dart';
 
 import '../widgets/tasks_list.dart';
 
@@ -12,7 +13,7 @@ class TaskScreen extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(
-              top: 60.0,
+              top: 100.0,
               right: 30.0,
               left: 30.0,
               bottom: 30.0,
@@ -53,7 +54,7 @@ class TaskScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20.0),
+                  top: Radius.circular(30.0),
                 ),
               ),
               child: TasksList(),
@@ -63,7 +64,12 @@ class TaskScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => AddTaskScreen(),
+          );
+        },
       ),
     );
   }
