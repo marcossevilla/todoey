@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey/models/task_data.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTaskScreen extends StatefulWidget {
+  @override
+  _AddTaskScreenState createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  TextEditingController _taskController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    String taskTitle;
-
     return Container(
       color: Color(0xFF757575),
       child: Container(
@@ -28,10 +33,13 @@ class AddTaskScreen extends StatelessWidget {
                 fontSize: 30.0,
               ),
             ),
-            TextField(
+            TextFormField(
               autofocus: true,
+              controller: _taskController,
               textAlign: TextAlign.center,
-              onChanged: (value) => taskTitle = value,
+              decoration: InputDecoration(
+                errorText: validateTask(_taskController.text),
+              ),
             ),
             SizedBox(height: 20.0),
             FlatButton(
@@ -47,7 +55,7 @@ class AddTaskScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
               ),
               onPressed: () {
-                Provider.of<TaskData>(context).addTask(taskTitle);
+                Provider.of<TaskData>(context).addTask(_taskController.text);
                 Navigator.pop(context);
               },
             ),
@@ -55,5 +63,13 @@ class AddTaskScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String validateTask(String value) {
+    if (value.isEmpty) {
+      return 'You\'re adding nothing!';
+    } else {
+      return null;
+    }
   }
 }

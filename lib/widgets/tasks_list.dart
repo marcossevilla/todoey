@@ -11,9 +11,22 @@ class TasksList extends StatelessWidget {
       builder: (context, data, child) => ListView.builder(
         itemCount: data.taskCount,
         itemBuilder: (context, i) {
-          return TaskTile(
-            title: data.tasks[i].name,
-            isChecked: data.tasks[i].isDone,
+          final task = data.tasks[i];
+          return Dismissible(
+            key: Key(task.name),
+            child: TaskTile(
+              title: task.name,
+              isChecked: task.isDone,
+              onPressed: (checkboxState) => data.updateTask(task),
+            ),
+            onDismissed: (direction) {
+              data.deleteTask(task);
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Deleted.'),
+                ),
+              );
+            },
           );
         },
       ),
