@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todoey/screens/add_task_screen.dart';
+import 'package:provider/provider.dart';
 
+import '../models/task_data.dart';
+import '../screens/add_task_screen.dart';
 import '../widgets/tasks_list.dart';
 
 class TaskScreen extends StatelessWidget {
@@ -39,7 +41,7 @@ class TaskScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 tasks',
+                  '${Provider.of<TaskData>(context).taskCount} tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
@@ -64,12 +66,10 @@ class TaskScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) => AddTaskScreen(),
-          );
-        },
+        onPressed: () => showModalBottomSheet(
+          context: context,
+          builder: (context) => AddTaskScreen(),
+        ),
       ),
     );
   }
