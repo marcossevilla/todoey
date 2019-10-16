@@ -22,9 +22,7 @@ class TasksList extends StatelessWidget {
             onDismissed: (direction) {
               data.deleteTask(task);
               Scaffold.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Deleted.'),
-                ),
+                SnackBar(content: Text('Deleted.')),
               );
             },
           );
